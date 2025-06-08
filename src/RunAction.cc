@@ -79,9 +79,14 @@ void RunAction::BeginOfRunAction(const G4Run*)
   accumulableManager->Reset();
 
   // analysis of primary and scatter signal
+  const auto detConstruction = static_cast<const DetectorConstruction*>(
+    G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+  G4double PhantomThickness = detConstruction->PhantomThickness;
+  std::string thickness = std::to_string(PhantomThickness);
+  replace(thickness.begin(), thickness.end(), '.', '_');
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager->SetDefaultFileType("root"); 
-  analysisManager->OpenFile("scatter_data");  // 输出文件名
+  analysisManager->OpenFile("scatter_data_" + thickness + "mm");  // 输出文件名
   analysisManager->CreateNtuple("Data", "Ip and Is");
   analysisManager->CreateNtupleDColumn("x");      // 像素x坐标
   analysisManager->CreateNtupleDColumn("y");      // 像素y坐标

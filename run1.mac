@@ -1,14 +1,59 @@
-# Macro file for example B1
-# 
-# Can be run in batch, without graphic
-# or interactively: Idle> /control/execute run1.mac
-#
-# Change the default number of workers (in multi-threading mode) 
+
 #/run/numberOfThreads 4
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 10.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
 
 /run/initialize
-#
-#/control/verbose 2
-#/tracking/verbose 2
+/run/beamOn 100000000
 
-/run/beamOn 200000
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 20.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
+
+/run/initialize
+/run/beamOn 100000000
+
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 30.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
+
+/run/initialize
+/run/beamOn 100000000
+
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 40.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
+
+/run/initialize
+/run/beamOn 100000000
+
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 50.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
+
+/run/initialize
+/run/beamOn 100000000
+
+# 几何参数，单位mm
+/GeometryParameter/Phantom/setPhantomSize 152.0
+/GeometryParameter/Phantom/setPhantomThickness 60.0
+/GeometryParameter/Detector/setDetectorSize 152.0
+/GeometryParameter/Detector/setDetectorThickness 10.0
+/GeometryParameter/Detector/setPixelNum 152
+

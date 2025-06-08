@@ -7,7 +7,7 @@
 
 class PixelSD : public G4VSensitiveDetector {
 public:
-    PixelSD(const G4String& name, const G4int N); // 像素尺寸
+    PixelSD(const G4String& name, const G4int PixelNum); // 像素尺寸
     virtual ~PixelSD();
 
     // virtual void Initialize(G4HCofThisEvent* hitCollection);

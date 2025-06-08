@@ -27,10 +27,13 @@
 /// \file scatterCorrection/include/DetectorConstruction.hh
 /// \brief Definition of the scatterCorrection::DetectorConstruction class
 
-#ifndef B1DetectorConstruction_h
-#define B1DetectorConstruction_h 1
+#ifndef DetectorConstruction_h
+#define DetectorConstruction_h 1
 
 #include "G4VUserDetectorConstruction.hh"
+
+
+class DetectorMessenger; 
 
 class G4VPhysicalVolume;
 class G4LogicalVolume;
@@ -43,15 +46,29 @@ namespace scatterCorrection
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
-    DetectorConstruction() = default;
-    ~DetectorConstruction() override = default;
+    DetectorConstruction();
+    ~DetectorConstruction() override;
 
     G4VPhysicalVolume* Construct() override;
 
     G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
+    void setPhantomSize(G4double);
+    void setPhantomThickness(G4double);
+    void setDetectorSize(G4double);
+    void setDetectorThickness(G4double);
+    void setPixelNum(G4int);
+    G4double GetPhantomSize () {return PhantomSize;};
+    G4double GetPhantomThickness () {return PhantomThickness;};
+    G4double GetDetectorSize () {return DetectorSize;};
+    G4double GetDetectorThickness () {return DetectorThickness;};
+    G4int GetPixelNum () {return PixelNum;};
+    G4double PhantomSize,PhantomThickness,DetectorSize,DetectorThickness;
+    G4int PixelNum;
+
   protected:
     G4LogicalVolume* fScoringVolume = nullptr;
+    DetectorMessenger* fDetectorMessenger;
 };
 
 }  // namespace scatterCorrection
@@ -59,3 +76,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
+
+
+
+
