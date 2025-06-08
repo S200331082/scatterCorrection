@@ -49,9 +49,6 @@ using namespace scatterCorrection;
 int main(int argc, char** argv)
 {
   auto start = std::chrono::high_resolution_clock::now();
-  // std::time_t start_time_t = std::chrono::system_clock::to_time_t(start);
-  // // 转换为本地时间结构
-  // std::tm* start_tm = std::localtime(&start_time_t);
 
   // Detect interactive mode (if no arguments) and define UI session
   //
@@ -124,24 +121,6 @@ int main(int argc, char** argv)
 
   auto end = std::chrono::high_resolution_clock::now();
   timeOutput(start, end);
-  // std::time_t end_time_t = std::chrono::system_clock::to_time_t(end);
-  // // 转换为本地时间结构
-  // std::tm* end_tm = std::localtime(&end_time_t);
-  // auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-  // long long total_seconds = duration.count();
-  // // 转换为 h:m:s
-  // int hours = total_seconds / 3600;
-  // int minutes = (total_seconds % 3600) / 60;
-  // int seconds = total_seconds % 60;
-  // // 格式化输出
-  
-  // G4cout << "开始时间: " << std::put_time(start_tm, "%Y-%m-%d %H:%M:%S") << G4endl;
-  // G4cout << "结束时间: " << std::put_time(end_tm, "%Y-%m-%d %H:%M:%S") << G4endl;
-
-  // G4cout << "耗时: "
-  //             << std::setw(2) << std::setfill('0') << hours << ":"
-  //             << std::setw(2) << std::setfill('0') << minutes << ":"
-  //             << std::setw(2) << std::setfill('0') << seconds << G4endl;
 
 }
 
