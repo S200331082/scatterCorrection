@@ -28,7 +28,8 @@
 /// \brief Implementation of the scatterCorrection::DetectorConstruction class
 
 #include "DetectorConstruction.hh"
-
+#include "PixelSD.hh"
+#include "G4SDManager.hh"
 #include "G4Box.hh"
 #include "G4Cons.hh"
 #include "G4LogicalVolume.hh"
@@ -113,7 +114,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   // detector
     G4Material* pixelMat = nist->FindOrBuildMaterial("G4_Si");
 
-    const G4int N = 768;
+    const G4int N = 100;
     const G4int Nx = N, Ny = N;
 
     const G4double detectorSize = 152.0 * mm;
@@ -168,11 +169,16 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                     0,  // copy number
                     checkOverlaps);  // overlaps checking
 
-  // Set Shape2 as scoring volume
-  //
+  // Set detector as scoring volume
   fScoringVolume = pixelLogic;
-  
 
+  // 注册敏感探测器
+  G4SDManager* sdManager = G4SDManager::GetSDMpointer();
+  auto pixelSD = new PixelSD("PixelSD", N);
+  sdManager->AddNewDetector(pixelSD);
+  pixelLogic->SetSensitiveDetector(pixelSD);  // 将敏感探测器绑定到像素逻辑体积
+
+  
 
   //
   // always return the physical World

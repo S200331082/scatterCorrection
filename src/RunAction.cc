@@ -28,10 +28,10 @@
 /// \brief Implementation of the scatterCorrection::RunAction class
 
 #include "RunAction.hh"
-
+#include "G4AnalysisManager.hh"
 #include "DetectorConstruction.hh"
 #include "PrimaryGeneratorAction.hh"
-
+#include "PixelSD.hh"
 #include "G4AccumulableManager.hh"
 #include "G4LogicalVolume.hh"
 #include "G4ParticleDefinition.hh"
@@ -40,6 +40,7 @@
 #include "G4RunManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4UnitsTable.hh"
+#include "G4SDManager.hh"
 
 namespace scatterCorrection
 {
@@ -76,6 +77,20 @@ void RunAction::BeginOfRunAction(const G4Run*)
   // reset accumulables to their initial values
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
   accumulableManager->Reset();
+
+  // analysis of primary and scatter signal
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->SetDefaultFileType("root"); 
+  analysisManager->OpenFile("scatter_data");  // 输出文件名
+  analysisManager->CreateNtuple("Data", "Ip and Is");
+  analysisManager->CreateNtupleDColumn("x");      // 像素x坐标
+  analysisManager->CreateNtupleDColumn("y");      // 像素y坐标
+  analysisManager->CreateNtupleDColumn("Ip");     // 主信号能量 (MeV)
+  analysisManager->CreateNtupleDColumn("Is");     // 散射信号能量 (MeV)
+  analysisManager->CreateNtupleIColumn("Np");     // 主信号计数
+  analysisManager->CreateNtupleIColumn("Ns");     // 散射信号计数
+  analysisManager->FinishNtuple();
+  analysisManager->OpenFile(); 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -119,6 +134,15 @@ void RunAction::EndOfRunAction(const G4Run* run)
     G4double particleEnergy = particleGun->GetParticleEnergy();
     runCondition += G4BestUnit(particleEnergy, "Energy");
   }
+
+  PixelSD* pixelSD = dynamic_cast<PixelSD*>(
+  G4SDManager::GetSDMpointer()->FindSensitiveDetector("PixelSD")); //管理器查找已注册的PixelSD类
+  if (pixelSD) pixelSD->EndOfRun();  // 所有事件结束后调用
+  
+  // 写root文件
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->Write();
+  analysisManager->CloseFile();
 
   // Print
   //
