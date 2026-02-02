@@ -8,52 +8,5 @@
 /GeometryParameter/Detector/setPixelNum 152
 
 /run/initialize
-/run/beamOn 100000000
-
-# 几何参数，单位mm
-/GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 20.0
-/GeometryParameter/Detector/setDetectorSize 152.0
-/GeometryParameter/Detector/setDetectorThickness 10.0
-/GeometryParameter/Detector/setPixelNum 152
-
-/run/initialize
-/run/beamOn 100000000
-
-# 几何参数，单位mm
-/GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 30.0
-/GeometryParameter/Detector/setDetectorSize 152.0
-/GeometryParameter/Detector/setDetectorThickness 10.0
-/GeometryParameter/Detector/setPixelNum 152
-
-/run/initialize
-/run/beamOn 100000000
-
-# 几何参数，单位mm
-/GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 40.0
-/GeometryParameter/Detector/setDetectorSize 152.0
-/GeometryParameter/Detector/setDetectorThickness 10.0
-/GeometryParameter/Detector/setPixelNum 152
-
-/run/initialize
-/run/beamOn 100000000
-
-# 几何参数，单位mm
-/GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 50.0
-/GeometryParameter/Detector/setDetectorSize 152.0
-/GeometryParameter/Detector/setDetectorThickness 10.0
-/GeometryParameter/Detector/setPixelNum 152
-
-/run/initialize
-/run/beamOn 100000000
-
-# 几何参数，单位mm
-/GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 60.0
-/GeometryParameter/Detector/setDetectorSize 152.0
-/GeometryParameter/Detector/setDetectorThickness 10.0
-/GeometryParameter/Detector/setPixelNum 152
+/run/beamOn 1000000
 

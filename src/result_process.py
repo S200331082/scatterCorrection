@@ -2,7 +2,7 @@ import uproot
 import pandas as pd
 
 # 替换为你的 ROOT 文件路径
-file_path = "../build/scatter_data.root"
+file_path = "../build/scatter_data_20_000000mm.root"
 tree_name = "Data"  # 修改为实际 TTree 名称（比如 Events、Tree、Data 等）
 
 # 打开文件和 TTree

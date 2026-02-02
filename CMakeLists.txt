@@ -37,6 +37,10 @@ set(EXAMPLEB1_SCRIPTS
   init_vis.mac
   run1.mac
   run2.mac
+  run3.mac
+  run4.mac
+  run5.mac
+  run6.mac
   vis.mac
   )
 
