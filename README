@@ -1,10 +1,38 @@
--------------------------------------------------------------------
 
-     =========================================================
-                       Scatter simulation
-     =========================================================
 
-1. 放到B1同级目录下
-2. 编译好后运行 ./example run1.mac
 
+```bash
+conda create -c conda-forge -p /mnt/data03/users/fanghaodu/envs/mc
+_simu/geant4 geant4
+```
+
+
+先在大盘给g4创个环境，-p后指定物理路径，不能再用名字激活，只能用路径激活
+
+
+```bash
+$ conda activate /mnt/data03/users/fanghaodu/envs/mc
+_simu/geant4
+$ conda deactivate
+$ conda config --set env_prompt '({name}) ' # 环境只显示名字不显示老长一串的路径
+```
+cmake安装
+```bash
+conda install -c conda-forge -p /mnt/data03/users/fanghaodu/envs/mc_simu/geant4 cmake
+```
+
+进入项目后
+```bash
+cd /mnt/data03/users/fanghaodu/envs/mc_simu/geant4/share/Geant4/examples/basic
+git clone git@github.com:S200331082/scatterCorrection.git
+cd scatterCorrection
+mkdir build
+cd build
+cmake .. -DZLIB_INCLUDE_DIR=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/include -DZLIB_LIBRARY_RELEASE=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/lib/libz.so -DFREETYPE_INCLUDE_DIR_freetype2=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/include -DFREETYPE_LIBRARY_RELEASE=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/lib/libfreetype.so -DEXPAT_INCLUDE_DIR=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/include -DEXPAT_LIBRARY_RELEASE=/mnt/data03/users/fanghaodu/envs/mc_simu/geant4/lib/libexpat.so
+# 长是长了点，但没有警告
+make -j4
+source ../run.sh
+
+# cmake时不用管install路径，make install是make之后复制文件用的，对于手编的geant4才会有geant4-install这个文件夹
+```
 
