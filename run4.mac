@@ -1,10 +1,9 @@
 # 几何参数，单位mm
 /GeometryParameter/Phantom/setPhantomSize 152.0
-/GeometryParameter/Phantom/setPhantomThickness 20.0
+/GeometryParameter/Phantom/setPhantomThickness 40.0
 /GeometryParameter/Detector/setDetectorSize 152.0
 /GeometryParameter/Detector/setDetectorThickness 10.0
 /GeometryParameter/Detector/setPixelNum 152
 
 /run/initialize
 /run/beamOn 1000000
-

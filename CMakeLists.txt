@@ -21,7 +21,9 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 # Add the executable, use our local headers, and link it to the Geant4 libraries
 #
 add_executable(exampleB1 exampleB1.cc ${sources} ${headers})
-target_include_directories(exampleB1 PRIVATE include)
+#target_include_directories(exampleB1 PRIVATE include)
+target_include_directories(exampleB1 PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
 target_link_libraries(exampleB1 PRIVATE ${Geant4_LIBRARIES})
 
 #----------------------------------------------------------------------------
@@ -35,6 +37,10 @@ set(EXAMPLEB1_SCRIPTS
   init_vis.mac
   run1.mac
   run2.mac
+  run3.mac
+  run4.mac
+  run5.mac
+  run6.mac
   vis.mac
   )
 

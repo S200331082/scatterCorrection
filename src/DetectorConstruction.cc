@@ -28,6 +28,7 @@
 /// \brief Implementation of the scatterCorrection::DetectorConstruction class
 
 #include "DetectorConstruction.hh"
+#include "DetectorMessenger.hh"
 #include "PixelSD.hh"
 #include "G4SDManager.hh"
 #include "G4Box.hh"
@@ -37,6 +38,7 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Trd.hh"
+#include "G4RunManager.hh"
 
 namespace scatterCorrection
 {
@@ -44,7 +46,22 @@ namespace scatterCorrection
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 
+DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
+{
+    
+    PhantomSize = 152.0 * mm;
+    PhantomThickness = 10.0 * mm;
+    DetectorSize = 152.0 * mm;
+    DetectorThickness = 10.0 * mm; 
+    PixelNum = 10; 
+    fDetectorMessenger = new DetectorMessenger(this); 
+    
+    
+}
 
+DetectorConstruction::~DetectorConstruction() {
+    delete fDetectorMessenger;  
+}
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
@@ -114,21 +131,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   // detector
     G4Material* pixelMat = nist->FindOrBuildMaterial("G4_Si");
 
-    const G4int N = 100;
-    const G4int Nx = N, Ny = N;
+    const G4int Nx = PixelNum, Ny = PixelNum;
 
-    const G4double detectorSize = 152.0 * mm;
-    const G4double pixelSize = detectorSize / N;
-    const G4double pixelThickness = 1.0 * mm;
+    const G4double pixelSize = DetectorSize / PixelNum;
 
     const G4double detectorZ = 335.0 * mm;
 
-    auto pixelSolid = new G4Box("Pixel", pixelSize, pixelSize, pixelThickness);
+    auto pixelSolid = new G4Box("Pixel", pixelSize, pixelSize, DetectorThickness);
     auto pixelLogic = new G4LogicalVolume(pixelSolid, pixelMat, "Pixel");
 
     G4double startPos = 0.0;
 
-    startPos = (1 - N) * pixelSize;
+    startPos = (1 - PixelNum) * pixelSize;
   
     G4int flag = 0;
     for (G4int ix = 0; ix < Nx; ix++) {
@@ -152,9 +166,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
   // phantom
 
+
   auto solidShape2 =
     new G4Box("Phantom",  // its name
-              152.0 * mm, 152.0 * mm, 10 * mm);  // its size
+              PhantomSize, PhantomSize, PhantomThickness);  // its size
 
   auto logicPhantom = new G4LogicalVolume(solidShape2,  // its solid
                                          nist->FindOrBuildMaterial("G4_WATER"),  // its material
@@ -174,7 +189,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
   // 注册敏感探测器
   G4SDManager* sdManager = G4SDManager::GetSDMpointer();
-  auto pixelSD = new PixelSD("PixelSD", N);
+  auto pixelSD = new PixelSD("PixelSD", PixelNum);
   sdManager->AddNewDetector(pixelSD);
   pixelLogic->SetSensitiveDetector(pixelSD);  // 将敏感探测器绑定到像素逻辑体积
 
@@ -188,4 +203,37 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+
+void DetectorConstruction::setPhantomSize(G4double value)
+{
+  PhantomSize = value; 
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
+void DetectorConstruction::setPhantomThickness(G4double value)
+{
+  PhantomThickness = value; 
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
+void DetectorConstruction::setDetectorSize(G4double value)
+{
+  DetectorSize = value; 
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
+void DetectorConstruction::setDetectorThickness(G4double value)
+{
+  DetectorThickness = value; 
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
+void DetectorConstruction::setPixelNum(G4int value)
+{
+  PixelNum = value; 
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
 }  // namespace scatterCorrection
+
+

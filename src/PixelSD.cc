@@ -12,8 +12,8 @@
 
 using namespace scatterCorrection;
 
-PixelSD::PixelSD(const G4String& name, const G4int N) : G4VSensitiveDetector(name) {
-    pixelCount = N * N;
+PixelSD::PixelSD(const G4String& name, const G4int PixelNum) : G4VSensitiveDetector(name) {
+    pixelCount = PixelNum * PixelNum;
     Ip.resize(pixelCount, 0.0);
     Is.resize(pixelCount, 0.0);
     Np.resize(pixelCount, 0);
